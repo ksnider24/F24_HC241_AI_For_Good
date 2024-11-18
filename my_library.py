@@ -6,19 +6,11 @@ def compute_probs(neg,pos):
   p1 = pos/(neg+pos)
   return [p0,p1]
 
-def cond_prob(full_table, the_evidence_column, the_evidence_column_value, the_target_column, the_target_column_value):
-  assert the_evidence_column in full_table
-  assert the_target_column in full_table
-  assert the_evidence_column_value in up_get_column(full_table, the_evidence_column)
-  assert the_target_column_value in up_get_column(full_table, the_target_column)
-
-  #your function body below - copy and paste then align with parameter names
-
-  t_subset = up_table_subset(full_table, the_target_column, 'equals', the_target_column_value)
-  e_list = up_get_column(t_subset, the_evidence_column)
-  p_b_a = sum([1 if v==the_evidence_column_value else 0 for v in e_list])/len(e_list)
-
-  return p_b_a
+def cond_prob(table, evidence, evidence_value, target, target_value):
+  t_subset = up_table_subset(table, target, 'equals', target_value)
+  e_list = up_get_column(t_subset, evidence)
+  p_b_a = sum([1 if v==evidence_value else 0 for v in e_list])/len(e_list)
+  return p_b_a + .01  #Laplace smoothing factor
 
 def cond_probs_product(full_table, evidence_row, target_column, target_column_value):
   assert target_column in full_table
