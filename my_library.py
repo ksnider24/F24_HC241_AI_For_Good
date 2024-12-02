@@ -123,7 +123,7 @@ def try_archs(train_table, test_table, target_column_name, architectures, thresh
 
   for arch in architectures:
 
-    probs = up_neural_net(train_table, test_table, arch, target)
+    probs = up_neural_net(train_table, test_table, arch, target_column_name)
     pos_probs = [x[1] for x in probs]
     all_mets = []
     for t in thresholds:
